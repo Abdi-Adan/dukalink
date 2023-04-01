@@ -2,7 +2,10 @@ import 'package:dukalink/application/redux/states/app_state.dart';
 import 'package:dukalink/application/singletons/initial_app_route.dart';
 import 'package:dukalink/domain/routes/routes.dart';
 import 'package:dukalink/domain/value_objects/app_enums.dart';
+import 'package:dukalink/presentation/widgets/molecular/custom_snackbars.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
 
 InitialRouteStore appInitialRoute = InitialRouteStore();
 
@@ -18,7 +21,7 @@ Future<String> getInitialRoute({
     case AuthStatus.init:
       return landingPageRoute;
     case AuthStatus.requiresLogin:
-      return landingPageRoute;
+      return phoneInputPageRoute;
     case AuthStatus.okay:
       return homePageRoute;
     default:
@@ -99,4 +102,39 @@ void backspace(TextEditingController controller) {
 
 bool isUtf16Surrogate(int value) {
   return value & 0xF800 == 0xD800;
+}
+
+Future<void> scanQR(BuildContext ctx) async {
+  String barcodeScanRes;
+  try {
+    barcodeScanRes = await FlutterBarcodeScanner.scanBarcode(
+        '#ff6666', 'Cancel', true, ScanMode.QR);
+    if (barcodeScanRes.isNotEmpty &&
+        barcodeScanRes != '' &&
+        !barcodeScanRes.contains('-1')) {
+      // var url = Uri.parse(barcodeScanRes);
+      // String branchId = url.queryParameters['branch']!;
+      // String tableNumber = url.queryParameters['table_number']!;
+      // var tableId = url.queryParameters['table_id'];
+
+      // ignore: use_build_context_synchronously
+      launchSnackbar(
+        context: ctx,
+        message: 'QR Code scanned successfuly, taking you to the restaurant',
+        type: SnackbarType.success,
+        dismissText: 'OKAY',
+      );
+
+      // ignore: use_build_context_synchronously
+      // Navigator.pushReplacement(
+      //     ctx,
+      //     MaterialPageRoute(
+      //         builder: (context) => RestaurantDetailScreen(
+      //               restaurantCode: branchId,
+      //               tableNumber: tableNumber,
+      //             )));
+    }
+  } on PlatformException {
+    barcodeScanRes = 'Failed to get platform version.';
+  }
 }

@@ -13,6 +13,7 @@ dependencies:
     sdk: flutter
   
   async_redux: ^19.0.2
+  cached_network_image: ^3.2.3
   cloud_firestore: ^4.5.0
   cupertino_icons: ^1.0.2
   equatable: ^2.0.5
@@ -20,6 +21,7 @@ dependencies:
   firebase_auth: ^4.4.0
   firebase_core: ^2.9.0
   firebase_crashlytics: ^3.1.0
+  flutter_barcode_scanner: ^2.0.0
   flutter_native_splash: ^2.2.19
   freezed: ^2.3.2
   json_annotation: ^4.8.0
@@ -69,7 +71,7 @@ flutter_native_splash:
   # splash screen to a png image.  This is useful for gradients. The image will be stretch to the
   # size of the app. Only one parameter can be used, color and background_image cannot both be set.
   color: "#ffffff"
-  image: "assets/logo/playstore.png"
+  image: "assets/logo/logo.png"
 
   # Android 12 handles the splash screen differently than previous versions.  Please visit
   # https://developer.android.com/guide/topics/ui/splash-screen
