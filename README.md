@@ -1,9 +1,9 @@
 # dukalink
 
 - [x] 1. Outline project milestones on readme as rudimentary documentation
-- [ ] 2. Milestone 1: Phone number authentication with OTP verification using firebase auth (TBD also use anonymous auth?)
+- [x] 2. Milestone 1: Phone number authentication with OTP verification using firebase auth (TBD also use anonymous auth?)
 - [ ] 3. Milestone 2. UI for dukalink home (implement all components needed for homepage up until cart)
-- [ ] 4. Milestone 3. UI for missing gaps mainly for checkout, map delivery functionality and receipt
+- [ ] 4. Milestone 3. UI for missing gaps mainly for checkout, map delivery functionality and receipt (On a bottomsheet i.e. selecting locations and tracking order)
 - [ ] 5. Milestone 4: Create model skeletons and Json fixtures to hydrate app.
 - [ ] 6. Milesone 5: Implement firestore dB
 - [ ] 7. Milestone 6: Implement mpesa daraja API

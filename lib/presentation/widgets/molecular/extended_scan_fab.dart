@@ -1,3 +1,4 @@
+import 'package:dukalink/presentation/widgets/atomic/app_themes.dart';
 import 'package:flutter/material.dart';
 
 class ExtendedFAB extends StatelessWidget {
@@ -9,7 +10,7 @@ class ExtendedFAB extends StatelessWidget {
       icon: const Icon(Icons.qr_code_scanner, color: Colors.white),
       label: const Text('Scan QR Code'),
       onPressed: () {},
-      backgroundColor: const Color(0xff10277C),
+      backgroundColor: DukalinkThemes.primaryColor,
       elevation: 5,
     );
   }

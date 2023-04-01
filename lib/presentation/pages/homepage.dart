@@ -1,16 +1,16 @@
-import 'package:dukalink/widgets/molecular/extended_scan_fab.dart';
+import 'package:dukalink/presentation/widgets/molecular/extended_scan_fab.dart';
 import 'package:flutter/material.dart';
 
-class DukalinkApp extends StatefulWidget {
-  const DukalinkApp({super.key, required this.title});
+class Homepage extends StatefulWidget {
+  const Homepage({super.key, required this.title});
 
   final String title;
 
   @override
-  State<DukalinkApp> createState() => _DukalinkAppState();
+  State<Homepage> createState() => _HomepageState();
 }
 
-class _DukalinkAppState extends State<DukalinkApp> {
+class _HomepageState extends State<Homepage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
