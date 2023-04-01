@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'package:dukalink/application/redux/actions/update_user_state_action.dart';
 import 'package:dukalink/application/redux/misc/flags.dart';
 import 'package:dukalink/application/redux/states/app_state.dart';
 import 'package:dukalink/domain/routes/routes.dart';
@@ -30,13 +31,12 @@ class EnterOtpAction extends ReduxAction<AppState> {
 
   @override
   Future<AppState?> reduce() async {
-    // dispatch(
-    //   UpdateUserStateAction(
-    //     isSignedIn: false,
-    //     pinCodeVerificationID: verificationId,
-    //     hasDoneTour: true,
-    //   ),
-    // );
+    await dispatch(
+      UpdateUserStateAction(
+        isSignedIn: false,
+        pinCodeVerificationID: verificationId,
+      ),
+    );
 
     dispatch(NavigateAction.pushNamed(verifyPhonePageRoute));
 

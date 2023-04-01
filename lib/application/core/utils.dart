@@ -18,7 +18,7 @@ Future<String> getInitialRoute({
     case AuthStatus.init:
       return landingPageRoute;
     case AuthStatus.requiresLogin:
-      return phoneInputPageRoute;
+      return landingPageRoute;
     case AuthStatus.okay:
       return homePageRoute;
     default:
@@ -29,18 +29,13 @@ Future<String> getInitialRoute({
 Future<AuthStatus> getAuthStatus({
   required AppState currentStore,
 }) async {
-  final bool hasDoneTour = currentStore.userState?.hasDoneTour ?? false;
   final bool signedIn = currentStore.userState?.isSignedIn ?? false;
   final bool isUIDPresent = (currentStore.userState?.uid != null);
 
-  if (hasDoneTour == true) {
-    if (signedIn == true && isUIDPresent) {
-      return AuthStatus.okay;
-    } else {
-      return AuthStatus.requiresLogin;
-    }
+  if (signedIn == true && isUIDPresent) {
+    return AuthStatus.okay;
   } else {
-    return AuthStatus.init;
+    return AuthStatus.requiresLogin;
   }
 }
 
