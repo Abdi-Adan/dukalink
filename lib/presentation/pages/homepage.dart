@@ -1,5 +1,13 @@
+import 'package:dukalink/domain/models/shops/product.dart';
+import 'package:dukalink/domain/models/shops/shop.dart';
+import 'package:dukalink/presentation/widgets/molecular/custom_snackbars.dart';
 import 'package:dukalink/presentation/widgets/molecular/extended_scan_fab.dart';
+import 'package:dukalink/presentation/widgets/molecular/product_item.dart';
+import 'package:dukalink/presentation/widgets/molecular/shop_item.dart';
 import 'package:flutter/material.dart';
+import 'package:rxdart/rxdart.dart';
+
+BehaviorSubject<bool> snackbarPrompt = BehaviorSubject.seeded(false);
 
 class Homepage extends StatefulWidget {
   const Homepage({super.key, required this.title});
@@ -11,6 +19,22 @@ class Homepage extends StatefulWidget {
 }
 
 class _HomepageState extends State<Homepage> {
+  @override
+  void initState() {
+    super.initState();
+    (!snackbarPrompt.value)
+        ? WidgetsBinding.instance.addPostFrameCallback((_) {
+            launchSnackbar(
+              context: context,
+              message: 'Scan QR Code',
+              type: SnackbarType.info,
+              dismissText: 'OKAY',
+            );
+          })
+        : () {};
+    snackbarPrompt.value = true;
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -33,7 +57,7 @@ class _HomepageState extends State<Homepage> {
                 onTap: () {},
                 child: const Padding(
                   padding: EdgeInsets.only(right: 20),
-                  child: Icon(Icons.settings, color: Colors.black),
+                  child: Icon(Icons.receipt, color: Colors.black),
                 ),
               ),
             ],
@@ -76,21 +100,18 @@ class _HomepageState extends State<Homepage> {
                   const Text('Top shops', style: TextStyle(fontSize: 18)),
                   const SizedBox(height: 10),
                   SizedBox(
-                    height: 100,
+                    height: 200,
                     child: ListView.builder(
                       scrollDirection: Axis.horizontal,
                       itemCount: 10,
                       itemBuilder: (BuildContext context, int index) {
-                        return Container(
-                          height: 120,
-                          width: 140,
-                          margin: const EdgeInsets.only(right: 10),
-                          decoration: BoxDecoration(
-                            color: Colors.grey[300],
-                            borderRadius: BorderRadius.circular(10),
-                          ),
-                          child: Center(
-                            child: Text('Shop $index'),
+                        Shop shop = Shop(
+                            id: '', name: 'Shop $index', type: 'Restaurant');
+
+                        return InkWell(
+                          onTap: () {},
+                          child: ShopItem(
+                            shop: shop,
                           ),
                         );
                       },
@@ -110,7 +131,7 @@ class _HomepageState extends State<Homepage> {
                   const Text('Top items', style: TextStyle(fontSize: 18)),
                   const SizedBox(height: 10),
                   SizedBox(
-                    height: 300,
+                    height: 360,
                     child: GridView.builder(
                       scrollDirection: Axis.horizontal,
                       itemCount: 10,
@@ -120,14 +141,15 @@ class _HomepageState extends State<Homepage> {
                         childAspectRatio: 1,
                       ),
                       itemBuilder: (BuildContext context, int index) {
-                        return Container(
-                          margin: const EdgeInsets.only(right: 10, bottom: 10),
-                          decoration: BoxDecoration(
-                            color: Colors.grey[300],
-                            borderRadius: BorderRadius.circular(10),
-                          ),
-                          child: Center(
-                            child: Text('Shop $index'),
+                        Product product = Product(
+                            basePrice: 100,
+                            id: '',
+                            name: 'Item $index',
+                            shopName: 'Java');
+                        return InkWell(
+                          onTap: () {},
+                          child: ProductItem(
+                            product: product,
                           ),
                         );
                       },
@@ -151,7 +173,6 @@ class _HomepageState extends State<Homepage> {
                     child: Flexible(
                       child: GridView.builder(
                         scrollDirection: Axis.vertical,
-                        physics: const NeverScrollableScrollPhysics(),
                         itemCount: 10,
                         gridDelegate:
                             const SliverGridDelegateWithFixedCrossAxisCount(
@@ -159,15 +180,13 @@ class _HomepageState extends State<Homepage> {
                           childAspectRatio: 1,
                         ),
                         itemBuilder: (BuildContext context, int index) {
-                          return Container(
-                            margin:
-                                const EdgeInsets.only(right: 10, bottom: 10),
-                            decoration: BoxDecoration(
-                              color: Colors.grey[300],
-                              borderRadius: BorderRadius.circular(10),
-                            ),
-                            child: Center(
-                              child: Text('Shop $index'),
+                          Shop shop = Shop(
+                              id: '', name: 'Shop $index', type: 'Restaurant');
+
+                          return InkWell(
+                            onTap: () {},
+                            child: ShopItem(
+                              shop: shop,
                             ),
                           );
                         },

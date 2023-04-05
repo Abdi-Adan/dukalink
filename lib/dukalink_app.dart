@@ -5,7 +5,6 @@ import 'package:dukalink/domain/routes/route_generator.dart';
 import 'package:dukalink/domain/routes/routes.dart';
 import 'package:dukalink/domain/value_objects/app_global_constants.dart';
 import 'package:dukalink/presentation/widgets/atomic/app_themes.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:async_redux/async_redux.dart';
 import 'package:firebase_analytics/firebase_analytics.dart';
@@ -78,14 +77,16 @@ class _DukalinkAppState extends State<DukalinkApp> with WidgetsBindingObserver {
                     converter: (Store<AppState> store) => store.state,
                     builder: (BuildContext context, AppState state) {
                       return MaterialApp(
-                        debugShowCheckedModeBanner: !kReleaseMode,
+                        debugShowCheckedModeBanner: false,
                         navigatorKey: globalAppNavigatorKey,
+                        theme: ThemeData(
+                          primaryColor: DukalinkThemes.primaryColor,
+                          accentColor: DukalinkThemes.secondaryColor,
+                        ),
                         navigatorObservers: <NavigatorObserver>[
                           FirebaseAnalyticsObserver(analytics: _analytics),
                         ],
-                        initialRoute:
-                            appInitialRoute.initialRoute.valueOrNull ??
-                                landingPageRoute,
+                        initialRoute: landingPageRoute,
                         onGenerateRoute: AppRouterGenerator.generateRoute,
                       );
                     }),
